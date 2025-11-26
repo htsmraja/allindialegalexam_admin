@@ -10,16 +10,15 @@ const LoginSlider = () => {
             height={78}
             width={200}
             alt=""
-            src="/favicon.png"
+            src="/logo.jpg"
             className="Img-fluid"
           />
         </div>
         <div>
           <div>
-            <h3>Welcome to Keshri Lights</h3>
+            <h3>Welcome to All India Legal Exam</h3>
             <p>
-              A one-stop destination for the latest and most reliable electronic gadgets, home appliances, and accessories.
-            </p>
+              Your complete digital platform for learning, practicing, and mastering the law—anytime, anywhere.            </p>
           </div>
         </div>
       </Card>

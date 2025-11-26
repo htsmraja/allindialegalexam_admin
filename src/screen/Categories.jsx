@@ -215,7 +215,7 @@ const Categories = () => {
                                                 <tr key={idx} style={{ textAlign: "center" }}>
                                                     <td>
                                                         <img
-                                                            src="http://localhost:5040/uploads/category/1763616681248_testwww.jpg"
+                                                            src={cat.image}
                                                             alt={cat.title}
                                                             style={{
                                                                 width: "80px",

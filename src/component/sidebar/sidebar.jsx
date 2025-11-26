@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 
 import { useAppSelector } from "../../Redux/Hooks";
-// import { useTranslation } from "@/app/i18n/client";
 import { Link } from "react-router-dom";
 import { Fragment, useState } from "react";
-import jaisalLogo from '../../assets/keshri.png'
+import jaisalLogo from '../../assets/allindialegal.jpg';
 import { useCommonContext } from "../../helper/CommonProvider";
 import { Spinner } from "reactstrap";
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
@@ -12,15 +11,16 @@ import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 const Sidebar = () => {
   const { sidebar } = useAppSelector((store) => store.LayoutReducer);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [subIndex, setSubIndex] = useState({ parentIndex: -1, activeIndex: -1 })
-  const { menuList } = useCommonContext()
-
+  const [subIndex, setSubIndex] = useState({ parentIndex: -1, activeIndex: -1 });
+  const { menuList } = useCommonContext();
 
   const mainMenu = menuList?.data?.map((menuItem, i) => (
-    <li key={i} className={i === activeIndex && "active"}>
+    <li key={i} className={i === activeIndex ? "active" : ""}>
+
+      {/* SUB MENU TYPE */}
       {menuItem.type === "sub" && (
         <a
-          className={`sidebar-header ${subIndex?.parentIndex === i && 'active'}`}
+          className={`sidebar-header ${subIndex?.parentIndex === i ? "active" : ""}`}
           href="#"
           role="button"
           onClick={(e) => {
@@ -35,31 +35,50 @@ const Sidebar = () => {
         </a>
       )}
 
+      {/* LINK TYPE */}
       {menuItem.type === "Link" && (
-        <Link to={`${menuItem?.path}`} className={`sidebar-header ${activeIndex === i ? "active" : ""}`} onClick={() => {
-          setActiveIndex(i);
-          setSubIndex({ parentIndex: -1, activeIndex: -1 });
-        }}>
-          {/* TODO: menu image */}
+        <Link
+          to={`${menuItem?.path}`}
+          className={`sidebar-header ${activeIndex === i ? "active" : ""}`}
+          onClick={() => {
+            setActiveIndex(i);
+            setSubIndex({ parentIndex: -1, activeIndex: -1 });
+          }}
+        >
           <span>{menuItem.title}</span>
-          {menuItem?.sub_menu?.length > 0 ? <i className="fa fa-angle-right pull-right"></i> : ""}
+          {menuItem?.sub_menu?.length > 0 && (
+            <i className="fa fa-angle-right pull-right"></i>
+          )}
         </Link>
       )}
 
+      {/* SUB MENUS */}
       {menuItem.sub_menu && (
-        <ul className={`sidebar-submenu ${activeIndex === i ? "menu-open" : ""}`} style={activeIndex === i ? { opacity: 1, transition: "opacity 500ms ease-in" } : {}}>
+        <ul
+          className={`sidebar-submenu ${activeIndex === i ? "menu-open" : ""}`}
+          style={
+            activeIndex === i
+              ? { opacity: 1, transition: "opacity 500ms ease-in" }
+              : {}
+          }
+        >
           {menuItem?.sub_menu?.map((childrenItem, index) => (
             <li key={index}>
               {childrenItem?.type === "Link" && (
                 <Link
                   to={`${childrenItem.path}`}
-                  className={subIndex?.activeIndex === index && subIndex?.parentIndex === i ? 'active' : ''}
+                  className={
+                    subIndex?.activeIndex === index &&
+                      subIndex?.parentIndex === i
+                      ? "active"
+                      : ""
+                  }
                   onClick={() => {
                     setSubIndex({ parentIndex: i, activeIndex: index });
                   }}
                 >
                   <i className="fa fa-circle"></i>
-                  {childrenItem?.title}{" "}
+                  {childrenItem?.title}
                 </Link>
               )}
             </li>
@@ -71,7 +90,9 @@ const Sidebar = () => {
 
   return (
     <Fragment>
-      <div className={`page-sidebar ${sidebar && "open"}`}>
+      <div className={`page-sidebar ${sidebar ? "open" : ""}`}>
+
+        {/* LOGO HEADER */}
         <div className="main-header-left d-none d-lg-block">
           <div
             className="logo-wrapper"
@@ -80,7 +101,6 @@ const Sidebar = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              // height: "120px", // adjust as needed
             }}
           >
             <Link to="/">
@@ -95,14 +115,13 @@ const Sidebar = () => {
               />
             </Link>
           </div>
-
-
-
         </div>
+
+        {/* SIDEBAR MENU */}
         <div className="sidebar custom-scrollbar">
-          {/* <UserPanel /> */}
+
           {menuList?.loading && (
-            <div className="d-grid" style={{ placeItems: 'center' }}>
+            <div className="d-grid" style={{ placeItems: "center" }}>
               <Spinner color="secondary" className="my-4" />
             </div>
           )}
@@ -112,7 +131,9 @@ const Sidebar = () => {
           )}
 
           {!menuList?.loading && menuList?.data?.length === 0 && (
-            <span className="text-muted text-center" style={{ fontSize: 14 }}>No Menu found</span>
+            <span className="text-muted text-center" style={{ fontSize: 14 }}>
+              No Menu found
+            </span>
           )}
         </div>
       </div>

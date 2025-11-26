@@ -104,11 +104,9 @@ const AddBook = () => {
             formData.append("highlights[]", h);
         });
 
-        const response = await addBook(formData);
+        await addBook(formData);
 
-        if (response?.success) {
-            navigate("/book-list");
-        }
+
     };
 
     return (
