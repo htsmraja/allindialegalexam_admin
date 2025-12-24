@@ -91,7 +91,6 @@ const Categories = () => {
         setOpenEditModal(false);
         setSelectedCategory({});
     };
-    console.log(category, "ee")
     // ---------- Input Handlers ----------
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -215,7 +214,11 @@ const Categories = () => {
                                                 <tr key={idx} style={{ textAlign: "center" }}>
                                                     <td>
                                                         <img
-                                                            src={cat.image}
+                                                            // src={cat.image}
+                                                            src={
+                                                                cat.image ? `${import.meta.env.VITE_APP_TEACHER_DOC_URL}/uploads/category/${cat.image}`
+                                                                    : "/no-image.png"
+                                                            }
                                                             alt={cat.title}
                                                             style={{
                                                                 width: "80px",

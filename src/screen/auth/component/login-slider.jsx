@@ -4,7 +4,7 @@ import companyLogo from "../../../assets/keshri.png";
 const LoginSlider = () => {
   return (
     <Col md="5" className="p-0 card-left">
-      <Card className="bg-primary">
+      <Card style={{ backgroundColor: "#3075a2", padding: '40px' }}>
         <div className="svg-icon">
           <Media
             height={78}

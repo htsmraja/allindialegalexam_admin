@@ -187,6 +187,7 @@ const SubCategoryList = () => {
         }
     };
 
+    console.log(subcategory, "subcategory")
 
     return (
         <>
@@ -261,17 +262,9 @@ const SubCategoryList = () => {
                                                         <td>
                                                             <img
                                                                 src={
-                                                                    Array.isArray(product.image)
-                                                                        ? product.image[0]
-                                                                        : product.image
+                                                                    product.image ? `${import.meta.env.VITE_APP_TEACHER_DOC_URL}/uploads/category/${product.image}`
+                                                                        : "/no-image.png"
                                                                 }
-                                                                alt={product.title}
-                                                                style={{
-                                                                    width: "80px",
-                                                                    height: "80px",
-                                                                    objectFit: "cover",
-                                                                    borderRadius: "5px",
-                                                                }}
                                                             />
                                                         </td>
                                                         <td>{product.title}</td>

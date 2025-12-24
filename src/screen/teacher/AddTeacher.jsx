@@ -64,7 +64,7 @@ const AddTeacher = () => {
         formData.append("degree_document", files.degree_document);
 
         console.log("Form Submitted", Object.fromEntries(formData));
-        register(formData)
+        addTeacher(formData)
         // Example
         // await axios.post("/api/teacher/signup", formData, {
         //     headers: { "Content-Type": "multipart/form-data" }

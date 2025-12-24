@@ -7,7 +7,6 @@ import { useCommonContext } from "../../helper/CommonProvider";
 const AddBatch = () => {
     const navigate = useNavigate();
     const { courseId } = useLocation().state;
-    console.log(courseId)
     const { addBatch } = useCommonContext();
 
     const [inputData, setInputData] = useState({

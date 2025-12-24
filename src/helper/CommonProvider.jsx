@@ -266,7 +266,6 @@ export const CommonProvider = ({ children }) => {
   }
   const addTeacher = async (data) => {
     try {
-      setLoginLoading(true);
       const response = await axios.post(`${base_url}/teacher/signup`, data,
         {
           headers: {
@@ -275,12 +274,11 @@ export const CommonProvider = ({ children }) => {
         }
       );
       if (response.status === 200 && response.data?.success) {
-        getTeacherList()
+        getTeacherList({ page: 1, limit: 10 });
         toast.success(response.data.message);
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Server error");
-      setLoginLoading(false);
 
     }
   }
@@ -451,7 +449,9 @@ export const CommonProvider = ({ children }) => {
           }
         }
       );
+      // console.log(response.data, "response.data")
       if (response.data.success) {
+        navigate('/batch-list', { state: { courseId: response.data.course_id } })
         toast.success(response.data.message || "Batch created successfully");
       } else {
         toast.error(response.data.message || "Failed to create batch");
@@ -474,6 +474,7 @@ export const CommonProvider = ({ children }) => {
         }
       );
       if (response.data.success) {
+        getBatchList({ page: 1, limit: 10 }, course_id)
         toast.success(response.data.message || "Teacher assigned successfully");
       } else {
         toast.error(response.data.message || "Failed to assign teacher");
@@ -607,6 +608,705 @@ export const CommonProvider = ({ children }) => {
       toast.error('An error occurred while deleting the Banner');
     }
   }
+  const [dashboardCount, setDashboardCount] = useState({ loading: true, data: [] })
+
+  const getDashboardCount = async () => { }
+
+  const [examTypeList, setExamTypeList] = useState({
+    data: [],
+    loading: false
+  });
+
+  const getExamTypeList = async () => {
+    try {
+      setExamTypeList(prev => ({ ...prev, loading: true }));
+      const response = await axios.post(
+        `${base_url}/admin/exam-type/list`,
+        {}, // POST body (empty)
+        {
+          headers: {
+            Authorization: Authtoken,
+          }
+        }
+      );
+      setExamTypeList({
+        data: response.data.data || [],
+        loading: false
+      });
+    } catch (error) {
+      console.error("Error fetching Exam Types:", error);
+      toast.error(
+        error.response?.data?.message ||
+        `Server Error: ${error.response?.statusText}`
+      );
+      setExamTypeList(prev => ({ ...prev, loading: false }));
+    }
+  };
+
+
+  const addExamType = async (formDataToSend) => {
+    try {
+      const response = await axios.post(
+        `${base_url}/admin/exam-type/add`,
+        formDataToSend,
+        {
+          headers: {
+            Authorization: Authtoken,
+          }
+        }
+      );
+      if (response.status === 200 && response.data.success) {
+        toast(response.data.message)
+        getExamTypeList();
+        navigate("/exam-type")
+      }
+    } catch (error) {
+      console.error("Error adding Exam:", error);
+      if (error.response) {
+        // Server responded but with an error code (4xx / 5xx)
+        toast.error(
+          error.response.data?.message ||
+          `Server Error: ${error.response.statusText}`
+        );
+      } else if (error.request) {
+        // Request made but no response received
+        toast.error("No response from server. Please check your connection.");
+      } else {
+        // Something else went wrong (client-side)
+        toast.error("Unexpected error occurred. Please try again later.");
+      }
+    }
+  }
+
+
+  const [questionBankTypeList, setQuestionBankTypeList] = useState({
+    data: [],
+    loading: false
+  });
+
+  const getquestionBankTypeList = async () => {
+    try {
+      setQuestionBankTypeList(prev => ({ ...prev, loading: true }));
+      const response = await axios.post(
+        `${base_url}/admin/question-bank-type/list`,
+        {}, // POST body (empty)
+        {
+          headers: {
+            Authorization: Authtoken,
+          }
+        }
+      );
+      setQuestionBankTypeList({
+        data: response.data.data || [],
+        loading: false
+      });
+    } catch (error) {
+      console.error("Error fetching Exam Types:", error);
+      toast.error(
+        error.response?.data?.message ||
+        `Server Error: ${error.response?.statusText}`
+      );
+      setQuestionBankTypeList(prev => ({ ...prev, loading: false }));
+    }
+  };
+
+
+  const addquestionBankTypeList = async (formDataToSend) => {
+    try {
+      const response = await axios.post(
+        `${base_url}/admin/question-bank-type/add`,
+        formDataToSend,
+        {
+          headers: {
+            Authorization: Authtoken,
+          }
+        }
+      );
+      if (response.status === 200 && response.data.success) {
+        toast(response.data.message)
+        getquestionBankTypeList();
+        navigate("/question-bank-type")
+      }
+    } catch (error) {
+      console.error("Error adding Exam:", error);
+      if (error.response) {
+        // Server responded but with an error code (4xx / 5xx)
+        toast.error(
+          error.response.data?.message ||
+          `Server Error: ${error.response.statusText}`
+        );
+      } else if (error.request) {
+        // Request made but no response received
+        toast.error("No response from server. Please check your connection.");
+      } else {
+        // Something else went wrong (client-side)
+        toast.error("Unexpected error occurred. Please try again later.");
+      }
+    }
+  }
+
+
+  const [questionBankList, setQuestionBankList] = useState({
+    data: [],
+    loading: false
+  });
+  const getQuestionBanks = async () => {
+    try {
+      setQuestionBankList(prev => ({ ...prev, loading: true }));
+      const response = await axios.post(
+        `${base_url}/admin/question-bank/list`,
+        {}, // POST body (empty)
+        {
+          headers: {
+            Authorization: Authtoken,
+          }
+        }
+      );
+      setQuestionBankList({
+        data: response.data.data || [],
+        loading: false
+      });
+    } catch (error) {
+      console.error("Error fetching Exam Types:", error);
+      toast.error(
+        error.response?.data?.message ||
+        `Server Error: ${error.response?.statusText}`
+      );
+      setQuestionBankList(prev => ({ ...prev, loading: false }));
+    }
+  }
+
+  const addQuestionBank = async (formDataToSend) => {
+    try {
+      const response = await axios.post(
+        `${base_url}/admin/question-bank/add`,
+        formDataToSend,
+        {
+          headers: {
+            Authorization: Authtoken,
+          }
+        }
+      );
+      if (response.status === 200 && response.data.status) {
+        toast(response.data.message)
+        getQuestionBanks();
+        navigate("/question_banks")
+      }
+    } catch (error) {
+      console.error("Error adding Exam:", error);
+      if (error.response) {
+        // Server responded but with an error code (4xx / 5xx)
+        toast.error(
+          error.response.data?.message ||
+          `Server Error: ${error.response.statusText}`
+        );
+      } else if (error.request) {
+        // Request made but no response received
+        toast.error("No response from server. Please check your connection.");
+      } else {
+        // Something else went wrong (client-side)
+        toast.error("Unexpected error occurred. Please try again later.");
+      }
+    }
+  }
+
+  const [questions, setQuestions] = useState({
+    data: [],
+    loading: false
+  });
+  const getQuestionsByBank = async (bank_id) => {
+    setQuestions((prev) => ({ ...prev, loading: true }));
+
+    try {
+      const response = await axios.post(
+        `${base_url}/admin/multipule-question/list`,
+        { bank_id },
+        {
+          headers: {
+            Authorization: Authtoken,
+          }
+        }
+      );
+      //  console.log(response)
+      const data = response.data.data || [];
+
+      setQuestions({
+        data,
+        loading: false,
+      });
+    } catch (error) {
+      console.log("Error loading questions:", error);
+      setQuestions({
+        data: [],
+        loading: false,
+      });
+    }
+  };
+
+
+  const addMultipuleQuestion = async (bank_id, questionsData) => {
+    try {
+      const response = await axios.post(
+        `${base_url}/admin/multipule-question/add`,
+        {
+          bank_id,
+          questions: questionsData
+        },
+        {
+          headers: {
+            Authorization: Authtoken,
+          }
+        }
+      );
+      console.log(response.data)
+      if (response.data.status) {
+        await getQuestionsByBank(bank_id);
+        navigate(`/question-list/${bank_id}`)
+      }
+
+    } catch (error) {
+      console.log("Error adding multiple questions:", error);
+      throw error;
+    }
+  };
+
+
+  const [questionPaperList, setQuestionPaperList] = useState({
+    data: [],
+    loading: false
+  });
+  const getQuestionPaperList = async (filters) => {
+    setQuestionPaperList(prev => ({ ...prev, loading: true }));
+
+    try {
+      const response = await axios.post(
+        `${base_url}/admin/question-paper/list`,
+        filters,
+        {
+          headers: {
+            Authorization: Authtoken
+          }
+        }
+      );
+      if (response.data.success) {
+        setQuestionPaperList({
+          data: response.data.data,
+          loading: false
+        });
+      } else {
+        setQuestionPaperList(prev => ({ ...prev, loading: false }));
+      }
+    } catch (error) {
+      console.log(error);
+      setQuestionPaperList(prev => ({ ...prev, loading: false }));
+    }
+  }
+
+
+  const [questionList, setQuestionList] = useState({
+    data: [],
+    loading: false,
+    page: 1,
+    limit: 20,
+    total: 0,
+    total_pages: 0
+  });
+
+  const getQuestionsByExamType = async (filter) => {
+    setQuestionList((prev) => ({ ...prev, loading: true }));
+
+    try {
+      const response = await axios.post(
+        `${base_url}/admin/multipule-question-by-exam-type/list`,
+        filter,
+        {
+          headers: {
+            Authorization: Authtoken,
+          },
+        }
+      );
+
+      const res = response?.data;
+      // console.log(response?.data)
+      setQuestionList({
+        data: res?.data || [],
+        loading: false,
+        page: res?.page || 1,
+        limit: res?.limit || 20,
+        total: res?.total || 0,
+        total_pages: res?.total_pages || 0,
+      });
+
+    } catch (error) {
+      console.log("Error loading questions:", error);
+
+      setQuestionList({
+        data: [],
+        loading: false,
+        page: 1,
+        limit: 20,
+        total: 0,
+        total_pages: 0,
+      });
+    }
+  };
+
+
+  const addQuestionPaper = async (formDataToSend) => {
+    try {
+      const response = await axios.post(
+        `${base_url}/admin/question-paper/add`,
+        formDataToSend,
+        {
+          headers: {
+            Authorization: Authtoken,
+          }
+        }
+      );
+      console.log(response, "response")
+      if (response.status === 200 && response.data.status) {
+        toast(response.data.message)
+        getQuestionPaperList();
+        navigate("/question_paper")
+      }
+    } catch (error) {
+      console.error("Error adding Exam:", error);
+      if (error.response) {
+        // Server responded but with an error code (4xx / 5xx)
+        toast.error(
+          error.response.data?.message ||
+          `Server Error: ${error.response.statusText}`
+        );
+      } else if (error.request) {
+        // Request made but no response received
+        toast.error("No response from server. Please check your connection.");
+      } else {
+        // Something else went wrong (client-side)
+        toast.error("Unexpected error occurred. Please try again later.");
+      }
+    }
+  }
+  const [paperQuestionList, setPaperQuestionList] = useState({
+    data: {
+      paper: null,
+      questions: []
+    },
+    loading: false
+  });
+
+  const getPaperQuestions = async (question_paper_id) => {
+    setPaperQuestionList(prev => ({ ...prev, loading: true }));
+
+    try {
+      const response = await axios.post(
+        `${base_url}/admin/question-to-paper/list`,
+        { question_paper_id },   // FIXED
+        {
+          headers: {
+            Authorization: Authtoken,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+      console.log(response.data)
+      if (response.data.success) {
+        setPaperQuestionList({
+          data: {
+            paper: response.data.paper,
+            questions: response.data.questions
+          },
+          loading: false
+        });
+      } else {
+        setPaperQuestionList(prev => ({ ...prev, loading: false }));
+      }
+    } catch (error) {
+      console.log(error);
+      setPaperQuestionList(prev => ({ ...prev, loading: false }));
+    }
+  };
+
+  const addQuestionsToPaper = async (data, id, exam_type_id) => {
+    try {
+      const response = await axios.post(
+        `${base_url}/admin/question-to-paper/add`,
+        data,
+        {
+          headers: { Authorization: Authtoken }
+        }
+      );
+      if (response.status === 200 && response.data.status) {
+        navigate(`/question-paper-list/${id}/${exam_type_id}`);
+
+      }
+      console.log(response);
+
+    } catch (error) {
+      console.log("Error adding multiple questions:", error);
+      throw error;
+    }
+  };
+  const [mockTestList, setMockTestList] = useState({
+    data: [], loading: false
+  })
+  const getMockTestList = async () => {
+    setMockTestList(prev => ({ ...prev, loading: true }));
+
+    try {
+      const response = await axios.post(
+        `${base_url}/admin/mock-test/list`,
+        {},
+        {
+          headers: { Authorization: Authtoken }
+        }
+      );
+      console.log(response)
+      if (response.status === 200 && response.data.status) {
+        setMockTestList({
+          data: response.data.data,
+          loading: false
+        });
+      } else {
+        setMockTestList(prev => ({ ...prev, loading: false }));
+      }
+    } catch (error) {
+      console.log(error);
+      setMockTestList(prev => ({ ...prev, loading: false }));
+    }
+  }
+
+  const addMockTest = async (payload) => {
+    try {
+      const response = await axios.post(
+        `${base_url}/admin/mock-test/add`,
+        payload,
+        {
+          headers: { Authorization: Authtoken }
+        }
+      );
+      if (response.status === 200 && response.data.status) {
+        navigate('/mock-test')
+        toast(response.data.message)
+      }
+
+
+    } catch (error) {
+      console.log("Error adding mock test:", error);
+      throw error;
+    }
+  }
+
+  const [FaqList, setFaqList] = useState({ loading: false, data: [] })
+
+  const getFaqList = async () => {
+    try {
+      setFaqList({ data: [], loading: true });
+      const response = await axios.post(
+        `${base_url}/faq/list`,
+        {},
+        { headers: { Authorization: Authtoken } }
+      );
+      if (response.status === 200) {
+        setFaqList({ data: response?.data?.data || [], loading: false });
+      } else {
+        setFaqList({ ...FaqList, loading: false });
+        toast.error("Failed to fetch varity list");
+      }
+    } catch (error) {
+      setFaqList({ ...FaqList, loading: false });
+      toast.error(error.response?.data?.message || 'Server error');
+    }
+  };
+
+  const addFaq = async (formDataToSend) => {
+    try {
+      const response = await axios.post(
+        `${base_url}/faq/add`,
+        formDataToSend,
+        {
+          headers: {
+            Authorization: Authtoken,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      if (response.status === 200) {
+        toast.success('FAQ added successfully');
+        getFaqList();
+      } else {
+        toast.error("Failed to add FAQ ");
+      }
+    } catch (error) {
+      console.error("Error adding FAQ:", error);
+
+      if (error.response) {
+        toast.error(
+          error.response.data?.message ||
+          `Server Error: ${error.response.statusText}`
+        );
+      } else if (error.request) {
+        toast.error("No response from server. Please check your connection.");
+      } else {
+        toast.error("An error occurred while adding the FAQ ");
+      }
+    }
+  };
+
+  const deleteFaq = async (id) => {
+    try {
+      const { status } = await axios.delete(`${base_url}/faq/delete/${id}`, {
+        headers: { Authorization: Authtoken },
+      });
+      status === 200 && (toast.success('FAQ deleted successfully'), getFaqList())
+    } catch {
+      toast.error("Something went wrong");
+    }
+  };
+
+  const editFaq = async (id, payload) => {
+    try {
+      const { status } = await axios.put(`${base_url}/faq/update/${id}`, payload, {
+        headers: { Authorization: Authtoken },
+      });
+      status === 200 && (toast.success('FAQ updated successfully'), getFaqList())
+    } catch {
+      toast.error("Something went wrong");
+    }
+  };
+  const [cmsList, setCmsList] = useState({ loading: true, data: [] })
+
+  const getCmsList = async (data) => {
+    try {
+      const response = await axios.post(
+        `${base_url}/cms/list`,
+        {},
+        { headers: { 'Authorization': Authtoken } }
+      );
+      const data = response.data;
+      // console.log(response.data)
+      if (response.status === 200) {
+        setCmsList({ data: response?.data?.data || [], loading: false });
+      } else {
+        setCmsList({ ...cmsList, loading: false });
+        toast.error("Failed to fetch Bag Type list");
+      }
+    } catch (error) {
+      setCmsList({ ...cmsList, loading: false });
+      toast.error(error.response?.data?.message || 'Server error');
+    }
+  };
+
+
+
+  const addCms = async (formDataToSend) => {
+    try {
+      const response = await axios.post(
+        `${base_url}/cms/add`,
+        formDataToSend,  // Pass FormData directly without spreading
+        {
+          headers: {
+            Authorization: Authtoken,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      if (response.status === 200) {
+        toast.success('CMS added successfully');
+        getCmsList();  // Refresh the banner list after success
+      } else {
+        toast.error("Failed to add CMS ");
+      }
+    } catch (error) {
+      console.error("Error adding CMS:", error);
+      if (error.response) {
+        toast.error(
+          error.response.data?.message ||
+          `Server Error: ${error.response.statusText}`
+        );
+      } else if (error.request) {
+        toast.error("No response from server. Please check your connection.");
+      } else {
+        toast.error("An error occurred while adding the CMS ");
+      }
+    }
+  };
+
+
+
+  const deleteCms = async (id) => {
+    try {
+      const response = await axios.delete(
+        `${base_url}/cms/delete/${id}`,
+        {
+          headers: {
+            Authorization: Authtoken
+          }
+        }
+      );
+      if (response.status === 200) {
+        toast.success('CMS deleted successfully');
+        getCmsList();  // Refresh the banner list after success
+      } else {
+        toast.error("Failed to delete CMS ");
+      }
+    } catch (error) {
+      console.error("Error deleting CMS:", error);
+      toast.error("An error occurred while deleting the CMS ");
+    }
+  };
+
+  const editcms = async (id, formData) => {
+    try {
+      const response = await axios.post(
+        `${base_url}/cms/update/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: Authtoken,
+            'Content-Type': 'application/json'
+          },
+        }
+      );
+      const data = response.data;
+      if (response.status === 200) {
+        toast.success('CMS updated successfully');
+        getCmsList();  // Refresh the brand list after success
+      } else {
+        toast.error('Failed to update the CMS');
+      }
+    } catch (error) {
+      console.error('Error updating CMS:', error);
+      toast.error('An error occurred while updating the CMS');
+    }
+  };
+  const [storeSetting, setStoreSetting] = useState({ loading: false, data: {} })
+
+  const getSettingDetails = async (body) => {
+    try {
+      setStoreSetting({ ...storeSetting, loading: true })
+      const { data } = await axios.get(`${base_url}/admin/store/setting/details`,
+        { headers: { 'Authorization': Authtoken } })
+      if (data.success) {
+        setStoreSetting({ loading: false, data: data.data })
+      } else {
+        setStoreSetting({ ...storeSetting, loading: false })
+        console.error(data.message)
+      }
+    } catch (error) {
+      setStoreSetting({ ...storeSetting, loading: false })
+    }
+  }
+
+
+  const edit_store_setting = async (body) => {
+    try {
+      const { data } = await axios.post(`${base_url}/store/setting/update`, body,
+        { headers: { 'Authorization': Authtoken } });
+      return data
+    } catch (error) {
+      return error?.response?.data || null
+    }
+  }
 
   const values = {
     getMenuList, menuList,
@@ -616,7 +1316,18 @@ export const CommonProvider = ({ children }) => {
     teacherList, getTeacherList, addTeacher, approveTeacher, rejectTeacher, getAllTeacher, allTeacher,
     addCourse, getCourseList, courseList,
     addBatch, getBatchList, batchList, assignTeacherToBatch,
-    getBannerList, BannerList, addBanner, editBranner, switchBranner, bannerDelete
+    getBannerList, BannerList, addBanner, editBranner, switchBranner, bannerDelete,
+    getDashboardCount, dashboardCount,
+    examTypeList, getExamTypeList, addExamType,
+    questionBankTypeList, getquestionBankTypeList, addquestionBankTypeList,
+    questionBankList, getQuestionBanks, addQuestionBank,
+    getQuestionsByBank, questions, addMultipuleQuestion, getQuestionsByExamType, questionList,
+    getQuestionPaperList, questionPaperList, addQuestionPaper,
+    getPaperQuestions, paperQuestionList, addQuestionsToPaper,
+    mockTestList, getMockTestList, addMockTest,
+    getFaqList, FaqList, addFaq, deleteFaq, editFaq,
+    getCmsList, cmsList, addCms, deleteCms, editcms,
+    getSettingDetails, storeSetting, edit_store_setting
 
   }
   return (

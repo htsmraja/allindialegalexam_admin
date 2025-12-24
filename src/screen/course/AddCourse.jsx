@@ -143,49 +143,7 @@ const AddCourse = () => {
                         </div>
                     </div>
 
-                    {/* PRICING */}
-                    <div className="card p-3 mb-3">
-                        <h5>Pricing Details</h5>
 
-                        <div className="row">
-                            <div className="col-md-3">
-                                <Label>Price</Label>
-                                <Input name="price" value={inputData.price} onChange={handleChange} />
-                            </div>
-
-                            <div className="col-md-3">
-                                <Label>Sale Price</Label>
-                                <Input name="sale_price" value={inputData.sale_price} onChange={handleChange} />
-                            </div>
-
-                            <div className="col-md-3">
-                                <Label>Is Offer?</Label>
-                                <Input type="select" name="mark_as_offer" value={inputData.mark_as_offer} onChange={handleChange}>
-                                    <option value="false">No</option>
-                                    <option value="true">Yes</option>
-                                </Input>
-                            </div>
-
-                            {inputData.mark_as_offer && (
-                                <>
-                                    <div className="col-md-3">
-                                        <Label>Offer Price</Label>
-                                        <Input name="offer_price" value={inputData.offer_price} onChange={handleChange} />
-                                    </div>
-
-                                    <div className="col-md-3 mt-3">
-                                        <Label>Offer Start</Label>
-                                        <Input type="datetime-local" name="offer_start" value={inputData.offer_start} onChange={handleChange} />
-                                    </div>
-
-                                    <div className="col-md-3 mt-3">
-                                        <Label>Offer End</Label>
-                                        <Input type="datetime-local" name="offer_end" value={inputData.offer_end} onChange={handleChange} />
-                                    </div>
-                                </>
-                            )}
-                        </div>
-                    </div>
 
                     {/* SUBSCRIPTION */}
                     <div className="card p-3 mb-3">
@@ -208,6 +166,51 @@ const AddCourse = () => {
                             )}
                         </div>
                     </div>
+                    {/* PRICING */}
+                    {inputData.is_subscription_allowed && (
+                        <div className="card p-3 mb-3">
+                            <h5>Pricing Details</h5>
+
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <Label>Price</Label>
+                                    <Input name="price" value={inputData.price} onChange={handleChange} />
+                                </div>
+
+                                <div className="col-md-3">
+                                    <Label>Sale Price</Label>
+                                    <Input name="sale_price" value={inputData.sale_price} onChange={handleChange} />
+                                </div>
+
+                                <div className="col-md-3">
+                                    <Label>Is Offer?</Label>
+                                    <Input type="select" name="mark_as_offer" value={inputData.mark_as_offer} onChange={handleChange}>
+                                        <option value="false">No</option>
+                                        <option value="true">Yes</option>
+                                    </Input>
+                                </div>
+
+                                {inputData.mark_as_offer && (
+                                    <>
+                                        <div className="col-md-3">
+                                            <Label>Offer Price</Label>
+                                            <Input name="offer_price" value={inputData.offer_price} onChange={handleChange} />
+                                        </div>
+
+                                        <div className="col-md-3 mt-3">
+                                            <Label>Offer Start</Label>
+                                            <Input type="datetime-local" name="offer_start" value={inputData.offer_start} onChange={handleChange} />
+                                        </div>
+
+                                        <div className="col-md-3 mt-3">
+                                            <Label>Offer End</Label>
+                                            <Input type="datetime-local" name="offer_end" value={inputData.offer_end} onChange={handleChange} />
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    )}
 
                     {/* FILE UPLOAD */}
                     <div className="card p-3 mb-3">

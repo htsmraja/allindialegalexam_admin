@@ -269,139 +269,144 @@ const AddBook = () => {
                             )}
                         </div>
                     </div>
+                    {!inputData.is_free && (
+                        <>
 
-                    {/* HARD COPY SECTION */}
-                    <div className="card p-3 mb-3">
-                        <h5>Hardcopy Details</h5>
+                            {/* HARD COPY SECTION */}
+                            < div className="card p-3 mb-3">
+                                <h5>Hardcopy Details</h5>
 
-                        <div className="row">
+                                <div className="row">
 
-                            {/* Has Hardcopy */}
-                            <div className="col-md-3">
-                                <Label>Has Hardcopy?</Label>
-                                <Input type="select" name="has_hardcopy" value={inputData.has_hardcopy} onChange={handleInputChange}>
-                                    <option value="false">No</option>
-                                    <option value="true">Yes</option>
-                                </Input>
-                            </div>
-
-                            {inputData.has_hardcopy && (
-                                <>
+                                    {/* Has Hardcopy */}
                                     <div className="col-md-3">
-                                        <Label>Hardcopy B2C Price</Label>
-                                        <Input name="hardcopy_price_b2c" value={inputData.hardcopy_price_b2c} onChange={handleInputChange} />
-                                    </div>
-
-                                    <div className="col-md-3">
-                                        <Label>Hardcopy Sale Price</Label>
-                                        <Input name="hardcopy_sale_price_b2c" value={inputData.hardcopy_sale_price_b2c} onChange={handleInputChange} />
-                                    </div>
-
-                                    <div className="col-md-3">
-                                        <Label>Hardcopy B2B Price</Label>
-                                        <Input name="hardcopy_price_b2b" value={inputData.hardcopy_price_b2b} onChange={handleInputChange} />
-                                    </div>
-
-                                    <div className="col-md-3">
-                                        <Label>Hardcopy B2B Min Purchase Qty</Label>
-                                        <Input name="hardcopy_minimum_purchase_stock" value={inputData.hardcopy_minimum_purchase_stock} onChange={handleInputChange} />
-                                    </div>
-
-                                    {/* Mark as Sale */}
-                                    <div className="col-md-3">
-                                        <Label>Is Sale?</Label>
-                                        <Input type="select" name="mark_hardcopy_sale" value={inputData.mark_hardcopy_sale} onChange={handleInputChange}>
+                                        <Label>Has Hardcopy?</Label>
+                                        <Input type="select" name="has_hardcopy" value={inputData.has_hardcopy} onChange={handleInputChange}>
                                             <option value="false">No</option>
                                             <option value="true">Yes</option>
                                         </Input>
                                     </div>
 
-                                    {inputData.mark_hardcopy_sale && (
+                                    {inputData.has_hardcopy && (
                                         <>
                                             <div className="col-md-3">
-                                                <Label>Offer Price</Label>
-                                                <Input name="hardcopy_offer_price_b2c" value={inputData.hardcopy_offer_price_b2c} onChange={handleInputChange} />
+                                                <Label>Hardcopy B2C Price</Label>
+                                                <Input name="hardcopy_price_b2c" value={inputData.hardcopy_price_b2c} onChange={handleInputChange} />
                                             </div>
 
                                             <div className="col-md-3">
-                                                <Label>Offer Start</Label>
-                                                <Input type="datetime-local" name="hardcopy_offer_start" value={inputData.hardcopy_offer_start} onChange={handleInputChange} />
+                                                <Label>Hardcopy Sale Price</Label>
+                                                <Input name="hardcopy_sale_price_b2c" value={inputData.hardcopy_sale_price_b2c} onChange={handleInputChange} />
                                             </div>
 
                                             <div className="col-md-3">
-                                                <Label>Offer End</Label>
-                                                <Input type="datetime-local" name="hardcopy_offer_end" value={inputData.hardcopy_offer_end} onChange={handleInputChange} />
+                                                <Label>Hardcopy B2B Price</Label>
+                                                <Input name="hardcopy_price_b2b" value={inputData.hardcopy_price_b2b} onChange={handleInputChange} />
                                             </div>
+
+                                            <div className="col-md-3">
+                                                <Label>Hardcopy B2B Min Purchase Qty</Label>
+                                                <Input name="hardcopy_minimum_purchase_stock" value={inputData.hardcopy_minimum_purchase_stock} onChange={handleInputChange} />
+                                            </div>
+
+                                            {/* Mark as Sale */}
+                                            <div className="col-md-3">
+                                                <Label>Is Sale?</Label>
+                                                <Input type="select" name="mark_hardcopy_sale" value={inputData.mark_hardcopy_sale} onChange={handleInputChange}>
+                                                    <option value="false">No</option>
+                                                    <option value="true">Yes</option>
+                                                </Input>
+                                            </div>
+
+                                            {inputData.mark_hardcopy_sale && (
+                                                <>
+                                                    <div className="col-md-3">
+                                                        <Label>Offer Price</Label>
+                                                        <Input name="hardcopy_offer_price_b2c" value={inputData.hardcopy_offer_price_b2c} onChange={handleInputChange} />
+                                                    </div>
+
+                                                    <div className="col-md-3">
+                                                        <Label>Offer Start</Label>
+                                                        <Input type="datetime-local" name="hardcopy_offer_start" value={inputData.hardcopy_offer_start} onChange={handleInputChange} />
+                                                    </div>
+
+                                                    <div className="col-md-3">
+                                                        <Label>Offer End</Label>
+                                                        <Input type="datetime-local" name="hardcopy_offer_end" value={inputData.hardcopy_offer_end} onChange={handleInputChange} />
+                                                    </div>
+                                                </>
+                                            )}
                                         </>
                                     )}
-                                </>
-                            )}
-                        </div>
-                    </div>
-
-                    {/* SOFTCOPY SECTION */}
-                    <div className="card p-3 mb-4">
-                        <h5>Softcopy Details</h5>
-
-                        <div className="row">
-                            <div className="col-md-3">
-                                <Label>Has Softcopy?</Label>
-                                <Input type="select" name="has_softcopy" value={inputData.has_softcopy} onChange={handleInputChange}>
-                                    <option value="false">No</option>
-                                    <option value="true">Yes</option>
-                                </Input>
+                                </div>
                             </div>
 
-                            {inputData.has_softcopy && (
-                                <>
-                                    <div className="col-md-3">
-                                        <Label>Softcopy B2C Price</Label>
-                                        <Input name="softcopy_price_b2c" value={inputData.softcopy_price_b2c} onChange={handleInputChange} />
-                                    </div>
+                            {/* SOFTCOPY SECTION */}
+                            <div className="card p-3 mb-4">
+                                <h5>Softcopy Details</h5>
 
+                                <div className="row">
                                     <div className="col-md-3">
-                                        <Label>Softcopy Sale Price</Label>
-                                        <Input name="softcopy_sale_price_b2c" value={inputData.softcopy_sale_price_b2c} onChange={handleInputChange} />
-                                    </div>
-
-                                    {/* Mark as sale */}
-                                    <div className="col-md-3">
-                                        <Label>Is Sale?</Label>
-                                        <Input type="select" name="mark_softcopy_sale" value={inputData.mark_softcopy_sale} onChange={handleInputChange}>
+                                        <Label>Has Softcopy?</Label>
+                                        <Input type="select" name="has_softcopy" value={inputData.has_softcopy} onChange={handleInputChange}>
                                             <option value="false">No</option>
                                             <option value="true">Yes</option>
                                         </Input>
                                     </div>
 
-                                    {inputData.mark_softcopy_sale && (
+                                    {inputData.has_softcopy && (
                                         <>
                                             <div className="col-md-3">
-                                                <Label>Offer Price</Label>
-                                                <Input name="softcopy_offer_price_b2c" value={inputData.softcopy_offer_price_b2c} onChange={handleInputChange} />
+                                                <Label>Softcopy B2C Price</Label>
+                                                <Input name="softcopy_price_b2c" value={inputData.softcopy_price_b2c} onChange={handleInputChange} />
                                             </div>
 
                                             <div className="col-md-3">
-                                                <Label>Offer Start</Label>
-                                                <Input type="datetime-local" name="softcopy_offer_start" value={inputData.softcopy_offer_start} onChange={handleInputChange} />
+                                                <Label>Softcopy Sale Price</Label>
+                                                <Input name="softcopy_sale_price_b2c" value={inputData.softcopy_sale_price_b2c} onChange={handleInputChange} />
                                             </div>
 
+                                            {/* Mark as sale */}
                                             <div className="col-md-3">
-                                                <Label>Offer End</Label>
-                                                <Input type="datetime-local" name="softcopy_offer_end" value={inputData.softcopy_offer_end} onChange={handleInputChange} />
+                                                <Label>Is Sale?</Label>
+                                                <Input type="select" name="mark_softcopy_sale" value={inputData.mark_softcopy_sale} onChange={handleInputChange}>
+                                                    <option value="false">No</option>
+                                                    <option value="true">Yes</option>
+                                                </Input>
                                             </div>
+
+                                            {inputData.mark_softcopy_sale && (
+                                                <>
+                                                    <div className="col-md-3">
+                                                        <Label>Offer Price</Label>
+                                                        <Input name="softcopy_offer_price_b2c" value={inputData.softcopy_offer_price_b2c} onChange={handleInputChange} />
+                                                    </div>
+
+                                                    <div className="col-md-3">
+                                                        <Label>Offer Start</Label>
+                                                        <Input type="datetime-local" name="softcopy_offer_start" value={inputData.softcopy_offer_start} onChange={handleInputChange} />
+                                                    </div>
+
+                                                    <div className="col-md-3">
+                                                        <Label>Offer End</Label>
+                                                        <Input type="datetime-local" name="softcopy_offer_end" value={inputData.softcopy_offer_end} onChange={handleInputChange} />
+                                                    </div>
+                                                </>
+                                            )}
                                         </>
                                     )}
-                                </>
-                            )}
-                        </div>
-                    </div>
+                                </div>
+                            </div>
+                        </>
+                    )}
+
 
                     {/* SUBMIT */}
                     <div className="text-end">
                         <Button color="primary" onClick={handleSubmit}>Submit Book</Button>
                     </div>
-                </form>
-            </div>
+                </form >
+            </div >
         </>
     );
 };
