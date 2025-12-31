@@ -1307,7 +1307,27 @@ export const CommonProvider = ({ children }) => {
       return error?.response?.data || null
     }
   }
+  const addLiveClass = async (formDataToSend) => {
+    try {
+      const response = await axios.post(
+        `${base_url}/admin/live-classes/add`,
+        formDataToSend,
+        {
+          headers: { Authorization: Authtoken }
+        }
+      );
+      if (response.status === 200 && response.data.success) {
+        navigate('/batch-list', { state: { courseId: formDataToSend.courseId } })
+        toast(response.data.message)
+      }
 
+
+    } catch (error) {
+      console.log("Error adding mock test:", error);
+      toast.error(error.response?.data?.message || "An error occurred while adding the live class");
+      throw error;
+    }
+  }
   const values = {
     getMenuList, menuList,
     category, getCategoryList, addCategory, editCategory, categoryDelete, toggleCategoryStatus,
@@ -1327,7 +1347,8 @@ export const CommonProvider = ({ children }) => {
     mockTestList, getMockTestList, addMockTest,
     getFaqList, FaqList, addFaq, deleteFaq, editFaq,
     getCmsList, cmsList, addCms, deleteCms, editcms,
-    getSettingDetails, storeSetting, edit_store_setting
+    getSettingDetails, storeSetting, edit_store_setting,
+    addLiveClass
 
   }
   return (

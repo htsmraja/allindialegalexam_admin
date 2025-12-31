@@ -62,7 +62,7 @@ const BatchList = () => {
         setOpenModal(false);
         setSelectedTeacher("");
     };
-
+    console.log(batchList, "batchList")
     return (
         <>
             <CommonBreadcrumb title={`Batch List for Course ID: ${courseId}`} />
@@ -97,6 +97,7 @@ const BatchList = () => {
                                     <th>Time Slots</th>
                                     <th>Actions</th>
                                     <th>Assign Teacher</th>
+                                    <th>Add Live Class</th>
                                 </tr>
                             </thead>
 
@@ -172,6 +173,14 @@ const BatchList = () => {
                                                     onClick={() => openAssignModal(item.id)}
                                                 >
                                                     {item.teacher_name ? "Change Teacher" : "Assign Teacher"}
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button
+                                                    className="btn btn-sm btn-info"
+                                                    onClick={() => navigate("/batches/add-live-class", { state: { batchId: item.id, courseId: courseId, teacherId: item.teacher_id } })}
+                                                >
+                                                    Add Live Class
                                                 </button>
                                             </td>
 

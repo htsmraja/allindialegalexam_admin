@@ -42,6 +42,7 @@ import AddMockTest from "./screen/mockTest/mocktest/AddMockTest";
 import FaqList from "./screen/faq/FaqList";
 import CmsList from "./screen/cms/CmsList";
 import StoreSettings from "./screen/StoreSettings";
+import AddLiveClass from "./screen/live-classes/AddLiveClass";
 
 function App() {
   return (
@@ -84,6 +85,7 @@ function App() {
           <Route path="/faqs" element={<FaqList />} />
           <Route path="/cms" element={<CmsList />} />
           <Route path="/store-settings" element={<StoreSettings />} />
+          <Route path="/batches/add-live-class" element={<AddLiveClass />} />
 
 
         </Route>
