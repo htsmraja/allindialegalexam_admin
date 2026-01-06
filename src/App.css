@@ -261,3 +261,31 @@ a,
   background-color: #043b36 !important;
   color: #ffffff !important;
 }
+
+/*********** new css style start ***********/
+.page-wrapper .page-body-wrapper .page-sidebar ~ .page-body {
+  background: #0f1220;
+}
+.page-main-header .main-header-right {
+  background: #151a2e;
+}
+.page-wrapper .page-body-wrapper .page-sidebar {
+  background: #000 !important;
+}
+.page-wrapper .page-body-wrapper .page-sidebar .sidebar-menu .sidebar-header,
+.page-wrapper
+  .page-body-wrapper
+  .page-sidebar
+  .sidebar-menu
+  .sidebar-header:hover {
+  color: #fff !important ;
+}
+.page-wrapper .page-body-wrapper .page-sidebar .sidebar-menu li a,
+.page-wrapper .page-body-wrapper .page-sidebar .sidebar-menu li a:hover {
+  color: #bbb !important ;
+}
+/*********** new css style end ***********/
+
+
+
+a, .page-main-header .main-header-right svg line, .page-main-header .main-header-right svg polyline, .page-main-header .main-header-right .nav-right ul li svg path, .page-wrapper .page-body-wrapper .page-sidebar .sidebar-menu > li > a:hover, .page-wrapper .page-body-wrapper .page-sidebar .sidebar-menu > li > a.active, .page-wrapper .page-body-wrapper .page-sidebar .sidebar-menu .sidebar-submenu > li > a:hover{color: #f0ba06 !important;}

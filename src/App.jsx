@@ -52,31 +52,36 @@ function App() {
           <Route path="/" element={<DashboardContainer />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/subcategory-List/:id" element={<SubCategoryList />} />
-          <Route path="/book-list" element={<BookList />} />
+          <Route path="/books-notes" element={<BookList />} />
           <Route path="/add-book" element={<AddBook />} />
           <Route path="/edit-book" element={<EditBook />} />
+          {/* need to delete */}
           <Route path="/teachers-list" element={<TeacherList />} />
+
+          {/* need to delete */}
+          <Route path="/teacher-applications" element={<TeacherList />} />
+
           <Route path="/add-teacher" element={<AddTeacher />} />
           <Route path="/student-list" element={<StudentList />} />
           <Route path="/course-list" element={<CourseList />} />
           <Route path="/add-course" element={<AddCourse />} />
-          <Route path="/batches/add-batch" element={<AddBatch />} />
+          <Route path="/batches/add-batch/:id" element={<AddBatch />} />
           <Route path="/batches/edit-batch" element={<EditBatch />} />
-          <Route path="/batch-list" element={<BatchList />} />
+          <Route path="/manage-batches/:id" element={<BatchList />} />
           <Route path="/banner-list" element={<BannerList />} />
           <Route path="/exam-type" element={<ExamType />} />
           <Route path="/add-exam-type" element={<AddExamType />} />
           <Route path="/question-bank-type" element={<QuestionBankType />} />
           <Route path="/add-question-bank-type" element={<AddQuestionBankType />} />
           <Route path="/edit-exam-type/:id" element={<EditExamType />} />
-          <Route path="/question_banks" element={<QuestionBanks />} />
+          <Route path="/question-banks" element={<QuestionBanks />} />
           <Route path="/add-question_bank" element={<AddQuestionBank />} />
           <Route path="/edit-question_bank/:id" element={<EditQuestionBank />} />
           <Route path="/rajaram" element={<AddMultipleMCQ />} />
           <Route path="/examtype" element={<ExamPage />} />
           <Route path="/add-question/:id" element={<AddMultipleQuestions />} />
           <Route path="/question-list/:id" element={<QuestionList />} />
-          <Route path="/question_paper" element={<QuestionPaperList />} />
+          <Route path="/question-paper" element={<QuestionPaperList />} />
           <Route path="/add-question-paper" element={<AddQuestionPaper />} />
           <Route path="/question-paper-list/:id/:exam_type_id" element={<PaperQuestionList />} />
           <Route path="/add-paper-question/:id/:exam_type_id" element={<AddQuestionsToPaper />} />

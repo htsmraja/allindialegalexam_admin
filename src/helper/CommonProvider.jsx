@@ -49,6 +49,29 @@ export const CommonProvider = ({ children }) => {
     }
   }
 
+
+  const [categoryList, setCategoryList] = useState([{ loading: false, data: [] }])
+  const getAllCategoryList = async () => {
+    try {
+      setCategoryList({ ...categoryList, loading: true });
+      const response = await axios.post(
+        `${base_url}/category/list`, {},
+        { headers: { Authorization: Authtoken } }
+      );
+      if (response.status === 200) {
+        setCategoryList({ data: response?.data?.data || [], loading: false });
+      } else {
+        setCategoryList({ ...categoryList, loading: false });
+        toast.error('Failed to fetch category list');
+      }
+    } catch (error) {
+      console.error('Error category List:', error);
+      // toast.error('An error occurred while fetching the Category');
+    }
+  }
+
+
+
   const addCategory = async (formDataToSend) => {
     try {
       const response = await axios.post(
@@ -249,10 +272,10 @@ export const CommonProvider = ({ children }) => {
           }
         }
       );
-      if (response.status === 200 && response.data.success) {
+      if (response.status === 200 && response.data.status) {
         setTeacherList({
-          data: response.data.data,
-          pagination: response.data.pagination,
+          data: response.data.data.list,
+          pagination: response.data.data.pagination,
           loading: false
         });
       } else {
@@ -264,6 +287,8 @@ export const CommonProvider = ({ children }) => {
       console.error("Request Failed:", error);
     }
   }
+
+
   const addTeacher = async (data) => {
     try {
       const response = await axios.post(`${base_url}/teacher/signup`, data,
@@ -274,7 +299,8 @@ export const CommonProvider = ({ children }) => {
         }
       );
       if (response.status === 200 && response.data?.success) {
-        getTeacherList({ page: 1, limit: 10 });
+        // getTeacherList({ page: 1, limit: 10 });
+        navigate('/teacher-applications');
         toast.success(response.data.message);
       }
     } catch (error) {
@@ -344,6 +370,41 @@ export const CommonProvider = ({ children }) => {
       console.error("Request Failed:", error);
     }
   }
+  const [teacherDetails, setTeacherDetails] = useState({
+    data: null,
+    loading: false
+  });
+
+  const getTeacherDetails = async (id) => {
+    try {
+      setTeacherDetails(prev => ({ ...prev, loading: true }));
+
+      const response = await axios.get(
+        `${base_url}/admin/teacher-details/${id}`,
+        {
+          headers: {
+            Authorization: Authtoken,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      if (response.status === 200 && response.data.status) {
+        setTeacherDetails({
+          data: response.data.data,
+          loading: false
+        });
+      } else {
+        setTeacherDetails(prev => ({ ...prev, loading: false }));
+        console.error("API Error:", response.data.message);
+      }
+
+    } catch (error) {
+      setTeacherDetails(prev => ({ ...prev, loading: false }));
+      console.error("Request Failed:", error);
+    }
+  };
+
   const [courseList, setCourseList] = useState({
     data: [],
     pagination: {},
@@ -451,7 +512,8 @@ export const CommonProvider = ({ children }) => {
       );
       // console.log(response.data, "response.data")
       if (response.data.success) {
-        navigate('/batch-list', { state: { courseId: response.data.course_id } })
+        navigate(`/manage-batches/${response.data.batch_id}`);
+
         toast.success(response.data.message || "Batch created successfully");
       } else {
         toast.error(response.data.message || "Failed to create batch");
@@ -790,7 +852,7 @@ export const CommonProvider = ({ children }) => {
       if (response.status === 200 && response.data.status) {
         toast(response.data.message)
         getQuestionBanks();
-        navigate("/question_banks")
+        navigate("/question-banks")
       }
     } catch (error) {
       console.error("Error adding Exam:", error);
@@ -1349,6 +1411,7 @@ export const CommonProvider = ({ children }) => {
     getCmsList, cmsList, addCms, deleteCms, editcms,
     getSettingDetails, storeSetting, edit_store_setting,
     addLiveClass
+    , categoryList, getAllCategoryList, teacherDetails, getTeacherDetails
 
   }
   return (

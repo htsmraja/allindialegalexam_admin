@@ -230,7 +230,7 @@ const Dashboard = () => {
     return (
         <Container fluid className="px-0 py-2">
             {/* Control Bar */}
-            <Card className="bg-dark border-secondary shadow-lg mb-4 sticky-top" style={{ top: '64px', zIndex: 10, backgroundColor: '#1E1E1E !important' }}>
+            <Card className="bg-dark border-secondary shadow-lg mb-4" style={{ backgroundColor: '#1E1E1E !important' }}>
                 <Card.Body className="py-2 px-3">
                     <Row className="align-items-center g-3">
                         <Col md={4}>

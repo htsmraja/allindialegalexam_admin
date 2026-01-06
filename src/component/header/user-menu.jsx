@@ -11,7 +11,7 @@ const UserMenu = () => {
 
   return (
     <>
-      <div className="media align-items-center onhover-dropdown">
+      <div className="onhover-dropdown">
         <FaUserCircle
           className="align-self-center pull-right img-50 rounded-circle blur-up lazyloaded"
           size={50}
